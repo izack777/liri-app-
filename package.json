@@ -1,0 +1,19 @@
+{
+  "name": "liri-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/request": "^2.47.0",
+    "@types/twitter": "0.0.28",
+    "request": "^2.85.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.1"
+  }
+}
