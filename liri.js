@@ -153,3 +153,25 @@ function movieThis(){
 	});
 };
 
+// Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+
+function doWhatItSays() {
+	fs.readFile("random.txt", "utf8", function(error, data){
+		if (!error) {
+			doWhatItSaysResults = data.split(",");
+			spotifyThisSong(doWhatItSaysResults[0], doWhatItSaysResults[1]);
+		} 
+		else {
+			console.log("Error occurred" + error);
+		}
+	});
+};
+
+function log(logResults) {
+  fs.appendFile("log.txt", logResults, (error) => {
+    if(error) {
+      throw error;
+    }
+  });
+}
+
