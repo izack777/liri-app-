@@ -7,68 +7,73 @@ var Spotify = require('node-spotify-api');
 var request = require('request');
 var liriArg = process.argv[2];
 
-// commands for liri to work
 
-switch(liriArg) {
-	case "my-tweets": 
-		myTweets(); 
+
+//switch and commands for liri check for index 2 if you don't find it send to the last message//
+
+switch(liriArg){
+	case "my-tweets":
+		myTweets ();
 		break;
-	case "spotify-this-song": 
-		spotifyThisSong(); 
+	case "spotify-this-song":
+		spotifyThisSong();
 		break;
 	case "movie-this": 
 		movieThis(); 
 		break;
-	case "do-what-it-says": 
+	case "do-what-it-says":
 		doWhatItSays();
 		break;
-	default: 
-		console.log("What are you trying to do? Try again with: "  +"\r\n"+ "my-tweets" +"\r\n"+ "spotify-this-song" +"\r\n"+ "movie-this" +"\r\n"+ "do-what-it-says.");
-
+	
+	default:
+				console.log("What are you trying to do? Try again with: "  + "\r\n" + "my-tweets" + "\r\n" + "spotify-this-song" + "\r\n" + "movie-this" + "\r\n" + "do-what-it-says.");
+		
 };
 
-// // twitter section
+//this is the twitter section 
 
-function myTweets() {
+function myTweets(){
 	var client = new twitter({
-  		consumer_key: keys.twitterKeys.consumer_key,
-  		consumer_secret: keys.twitterKeys.consumer_secret,
-  		access_token_key: keys.twitterKeys.access_token_key,
-  		access_token_secret: keys.twitterKeys.access_token_secret
-	});
+		consumer_key: keys.twitterKeys.consumer_key,
+		consumer_secret: keys.twitterKeys.consumer_secret,
+		access_token_key: keys.twitterKeys.access_token_key,
+		access_token_secret: keys.twitterKeys.access_token_secret
+  });
 
-	var twitterUsername = process.argv[3];
-	// show my tweet if username is not typed
-	if (!twitterUsername) {
-		twitterUsername = "brandonyhlee";
-	}
+  var twitterUserName = procees.argv[3];
 
-	params = {screen_name: twitterUsername, count: 21};
+  		if (!twitterUserName){
+			  tweeterUsername = "izack001";
+		  }
 
-	client.get('statuses/user_timeline', params, function(error, data, response){
-  		if (!error) {
+		  params = {sreen_name: twitterUserName, count:20};
 
-  			for (var i = 0; i < data.length; i++) {
-  				var twitterResults = 
-  				"@" + data[i].user.screen_name + ": " + 
-  				data[i].text + "\r\n" + 
-  				data[i].created_at + "\r\n" +
-  				"------------------------------ " + i + " ------------------------------" + "\r\n";
+		  client.get('statuses/user_timeline',params, function(error, data, response){
+			  if(!error){
+				
+				for (var i = 0; i < data.length; i++) {
+					var twitterResults = 
+					"@" + data[i].user.screen_name + ": " + 
+					data[i].text + "\r\n" + 
+					data[i].created_at + "\r\n" +
+					"------------------------------ " + i + " ------------------------------" + "\r\n";
+  
+					console.log(twitterResults);
+					random(twitterResults);	  
+					
+					}
+			  }
+			  else{
+				  console.log("ERROR");
+				  return;
+			  }
+		  });
 
-  				console.log(twitterResults);
-  				log(twitterResults);
-  				
-  			}
-  		}
-  		else {
-  			console.log("Error");
-  			return;
-  		}
-	});
-
+	
 }
 
-// spotify section
+//this is the spotify function//
+
 
 function spotifyThisSong(spotifySong) {
 	var spotify = new Spotify({
@@ -101,7 +106,7 @@ function spotifyThisSong(spotifySong) {
     				"Album: " + songInfo[i].album.name + "\r\n" +
     				"------------------------------ " + i + " ------------------------------" + "\r\n";
     				console.log(spotifyResults);
-    				log(spotifyResults);
+    				random(spotifyResults);
 
     			}
     		}
@@ -109,64 +114,42 @@ function spotifyThisSong(spotifySong) {
 	});
 }
 
+
 // // // omdb section 
 
 function movieThis(){
 
-		var movie = process.argv[3];
-			if(!movie){
-				movie = 'Mr. Nobody.';
-			}
-		
-		params = movie
+	var movie = process.argv[3];
+		if(!movie){
+			movie = 'Mr. Nobody.';
+		}
+	
+	params = movie
 
-		request("http://www.omdbapi.com/?apikey=" + keys.omdbKey.omdb_key + "&t=" + params + "&y=&plot=short&r=json&tomatoes=true", function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				var movieObject = JSON.parse(body);
-				// console.log(movieObject); 
-				var movieResults =
-				"------------------------------ begin ------------------------------" + "\r\n" +
-				"Title: " + movieObject.Title+"\r\n"+
-				"Year: " + movieObject.Year+"\r\n"+
-				"Imdb Rating: " + movieObject.imdbRating+"\r\n"+
-				"Country: " + movieObject.Country+"\r\n"+
-				"Language: " + movieObject.Language+"\r\n"+
-				"Plot: " + movieObject.Plot+"\r\n"+
-				"Actors: " + movieObject.Actors+"\r\n"+
-				"Rotten Tomatoes Rating: " + movieObject.tomatoRating+"\r\n"+
-				"Rotten Tomatoes URL: " + movieObject.tomatoURL + "\r\n" + 
-				"------------------------------ finish ------------------------------" + "\r\n";
-				console.log(movieResults);
+	request("http://www.omdbapi.com/?apikey=" + keys.omdbKey.omdb_key + "&t=" + params + "&y=&plot=short&r=json&tomatoes=true", function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			var movieObject = JSON.parse(body);
+			// console.log(movieObject); 
+			var movieResults =
+			"------------------------------ begin ------------------------------" + "\r\n" +
+			"Title: " + movieObject.Title+"\r\n"+
+			"Year: " + movieObject.Year+"\r\n"+
+			"Imdb Rating: " + movieObject.imdbRating+"\r\n"+
+			"Country: " + movieObject.Country+"\r\n"+
+			"Language: " + movieObject.Language+"\r\n"+
+			"Plot: " + movieObject.Plot+"\r\n"+
+			"Actors: " + movieObject.Actors+"\r\n"+
+			"Rotten Tomatoes Rating: " + movieObject.tomatoRating+"\r\n"+
+			"Rotten Tomatoes URL: " + movieObject.tomatoURL + "\r\n" + 
+			"------------------------------ finish ------------------------------" + "\r\n";
+			console.log(movieResults);
 
-				log(movieResults); 
-			} 
-			else {
-				console.log("Error :"+ error);
-				return;
-			}
-		});
-	};
-
-
-// Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-
-function doWhatItSays() {
-	fs.readFile("random.txt", "utf8", function(error, data){
-		if (!error) {
-			doWhatItSaysResults = data.split(",");
-			spotifyThisSong(doWhatItSaysResults[0], doWhatItSaysResults[1]);
+			random(movieResults); 
 		} 
 		else {
-			console.log("Error occurred" + error);
+			console.log("Error :"+ error);
+			return;
 		}
 	});
 };
-
-function log(logResults) {
-  fs.appendFile("log.txt", logResults, (error) => {
-    if(error) {
-      throw error;
-    }
-  });
-}
 

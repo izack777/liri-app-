@@ -1,13 +1,13 @@
-// console.log('this is loaded');
+console.log('this is loaded');
 
 // exports.spotifyKey = {
 // 	client_id: 'f2d9fb1344314773b5dc9f0aed339aca',
 // 	client_secret: 'c963d2bf7f314d78b5e010907072a842'
 // };
 
-// exports.omdbKey = {
-// 	omdb_key: '40e9cece'
-// };
+exports.omdbKey = {
+	omdb_key: '40e9cece'
+};
 
 // exports.twitterKeys = {
 //   consumer_key: 'GIlLd1IpNsusR7pkwAfpsXmbk',
